@@ -24,10 +24,12 @@ def encoder(scheme, host, user, app_name='SyTech'):
     # Activating url
     activation_url = reverse("users:activate_user_account", kwargs=kwargs)
     activate_url = f"{scheme}://{host}{activation_url}"
+    static_url = f"{scheme}://{host}{settings.STATIC_URL}"
     context = {
         "activate_url": activate_url,
         "app_name": app_name,
         "user": user,
+        'fullurlstatic': static_url,
     }
     return context
 

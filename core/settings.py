@@ -41,10 +41,13 @@ INSTALLED_APPS = [
 
     'bootstrap4',
     'fullurl',
+    'crispy_forms',
 ]
 
 
 AUTH_USER_MODEL = 'user.CustomUser'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
