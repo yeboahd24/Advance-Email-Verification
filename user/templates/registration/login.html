@@ -1,0 +1,147 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+{% load static %}
+
+{% block head %}
+<title>SyTech - {% trans 'Log in' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main log-in container-fluid d-flex align-items-center px-0">
+    <div class="container py-4">
+        <form method="post" class="card shadow p-4">
+            {% if user.is_authenticated %}
+                <h1 class="text-center section-heading">{% trans 'You are logged in' %}</h1>
+            {% else %}
+                <h2 class="text-left section-heading mb-4 w-100">{% trans 'Log in' %}</h2>
+
+                {% bootstrap_messages %}
+                {% csrf_token %}
+
+                <div class="form-group  mb-4">
+                    <input
+                        type="text" name="username" autofocus=""
+                        autocapitalize="none" autocomplete="off"
+                        maxlength="254" title="" id="id_username"
+                        placeholder="{% trans 'Email address' %}"
+                        class="form-control {% if form.non_field_errors %} is-invalid {% endif %} mb-4"
+                    >
+
+                    <input
+                        type="password" name="password"
+                        autocomplete="off"
+                        class="form-control {% if form.non_field_errors %} is-invalid {% endif %}"
+                        title="" id="id_password"
+                        placeholder="{% trans 'Password' %}"
+                    >
+                </div>
+{% comment %} 
+                <div class="row align-items-center">
+                    <div class="col-12 pl-0 col-lg-6 px-0">
+                        <div class="social my-3">
+                            <div class="social__container text-left mb-2">
+                                <img src="{% static 'img/social-icons/facebook.png' %}" class="mr-1" height="24" />
+                                <a href="{% url 'social:begin' 'facebook' %}" target="_blank" class="facebook text-secondary" role="button">
+                                    {% trans 'Login with Facebook' %}
+                                </a>
+                            </div>
+
+                            <div class="social__container text-left">
+                                <img src="{% static 'img/social-icons/google.png' %}" class="mr-1"  height="24" />
+                                <a href="{% url 'social:begin' 'google-oauth2' %}" target="_blank" class="google text-secondary" role="button">
+                                    {% trans 'Login with Google' %}
+                                </a>
+                            </div>
+                        </div>
+                    </div> {% endcomment %}
+
+                    <div class="col-12 col-lg-6 text-center text-lg-right align-middle my-4 my-lg-0 px-0">
+                        <input type="hidden" name="next" value="{{ next }}">
+                        <button class="btn btn-primary btn-lg px-4" type="submit" disabled>{% trans 'Log in' %}</button>
+                    </div>
+                </div>
+            {% endif %}
+
+            <hr class="w-100 bg-dark mt-2 mb-1" />
+
+            <div class="row log-in__footer pt-2">
+                <div class="col-12 col-lg-6 text-secondary px-0">
+                    {% trans 'No account?' %}
+                    <a href="{% url 'users:signup' %}" class="text-primary">
+                        {% trans 'Sign up' %}
+                    </a>
+                </div>
+
+                <div class="col-12 col-lg-6 text-secondary text-lg-right px-0">
+                    {% trans 'Forgotten password?' %}
+                    <a href="{% url 'users:password_reset' %}" class="text-primary">
+                        {% trans 'Restore' %}
+                    </a>
+                </div>
+            </div>
+        </form>
+
+        <div class="popup-message-container shadow rounded-lg bg-white p-3"
+            {% if not form.non_field_errors %}hidden{% endif %}
+        >
+            <div class="text-right">
+              <button type="button" class="close text-secondary">
+                {% comment %} {% include 'includes/close-button.html' %} {% endcomment %}
+              </button>
+            </div>
+
+            <div class="p-3">
+                <div
+                    class="popup-message text-center
+                    {% if form.non_field_errors %} text-danger {% endif %}"
+                >
+                    {% trans form.non_field_errors.0 %}
+                </div>
+            </div>
+            {% if num_attempt == 1 %}
+                <div class="p-3">
+                    <div class="popup-message text-center text-danger ">
+                        {% trans "Check your email and follow the instructions to regain access to your account." %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<script>
+const submitButton = document.querySelector('button[type="submit"]')
+
+const emailInput = document.querySelector('#id_username')
+const passwordlnput = document.querySelector('#id_password')
+
+const popupMessageContainer = document.querySelector('.popup-message-container')
+const popupCloseButton = popupMessageContainer.querySelector('button')
+
+function checkButtonActivity() {
+  const inputAllFilled = emailInput.value && passwordlnput.value
+
+  if (inputAllFilled) {
+    submitButton.removeAttribute("disabled")
+  } else {
+    submitButton.setAttribute("disabled", "true")
+  }
+}
+
+function closePopupMessage() {
+    popupMessageContainer.setAttribute('hidden', 'true')
+}
+
+checkButtonActivity()
+
+for (const input of [emailInput, passwordlnput]) {
+  input.addEventListener('input', checkButtonActivity)
+}
+
+popupCloseButton.addEventListener('click', closePopupMessage)
+
+setTimeout(closePopupMessage, 5000)
+
+</script>
+{% endblock content %}

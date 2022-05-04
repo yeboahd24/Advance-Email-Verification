@@ -1,0 +1,15 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block head %}
+<title>SyTech - {% trans 'Verify your email' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main email-verify-done container-fluid d-flex align-items-center">
+    <div class="container justify-content-center py-4 py-md-0 mt-4">
+        <h1 class="text-center">{% trans 'Confirm your email address.' %}</h1>
+        <p>{% blocktrans %}This e-mail confirmation link expired or is invalid. We have sent you an email with a new link. Please check your mail.{% endblocktrans %}</p>
+    </div>
+</section>
+{% endblock content %}

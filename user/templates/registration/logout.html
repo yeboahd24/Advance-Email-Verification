@@ -1,0 +1,17 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block head %}
+<title>Longevity InTime - {% trans 'User`s verification' %}</title>
+{% endblock head %}
+
+{% block title %}{% trans 'Logged out' %}{% endblock title %}
+
+{% block content %}
+<div class="container mt-4 mb-4">
+    <h1 class="text-center">{% trans 'Logged out' %}</h1>
+    <div class="text-center">
+        <p>{% trans 'You have been successfully logged out. You can' %} <a href="{% url 'users:login' %}">{% trans 'log in again' %}.</a></p>
+    </div>
+</div>
+{% endblock content %}

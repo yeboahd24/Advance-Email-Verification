@@ -1,0 +1,35 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block head %}
+<title>SyTech - {% trans 'Email address confirmed' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main email-verify-done container-fluid d-flex align-items-center">
+    <div class="container transparent justify-content-center py-6 py-md-0 mx-auto px-lg-5">
+        {% if user.is_active %}
+            {% if reuqest.user.is_authenticated %}
+            <a class="text-center" href="#">Active</a>
+
+            {% else %}
+            <h3 class="text-center py-1 my-3">
+                {% trans 'Your email address confirmed!' %}
+                <br>
+                {% trans 'You can' %}
+                <a href="{% url 'users:login' %}" class="text-primary"> {% trans 'log in now' %}</a>
+                {% trans 'or do it in your mobile app' %}
+            </h3>
+            {% endif %}
+        {% else %}
+        <p class="text-center">{% trans "Something went wrong." %}</p>
+        {% endif %}
+    </div>
+</section>
+
+<script>
+setTimeout(() => {
+    window.location.href = "{% url 'users:login' %}"
+}, 10000)
+</script>
+{% endblock content %}

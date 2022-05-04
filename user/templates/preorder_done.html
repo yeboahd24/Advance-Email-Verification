@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block head %}
+<title>SyTech - {% trans 'Welcome' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main preorder-done container-fluid d-flex align-items-center">
+    <div class="container justify-content-center py-4 py-md-0 mt-4">
+        <p class="text-secondary pt-4 text-center">
+        {% trans 'Your preorder is done' %}
+        </p>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block head %}
+<title>SyTech - {% trans 'Welcome' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main sign-up-done container-fluid d-flex align-items-center justify-content-center">
+    <div class="container transparent justify-content-center py-6 py-md-0 mx-lg-5 px-lg-5">
+        <h3 class="text-center py-1 my-3">{% trans 'Welcome' %}, {{ new_user.email }}!</h3>
+        <p class="text-center">
+            {% blocktrans %}We have sent you an email for confirm your account. Please contact us if you do not receive it within a few minutes.{% endblocktrans %}
+        </p>
+    </div>
+</section>
+<script>
+setTimeout(() => {
+    window.location.href = "{% url 'users:login' %}"
+}, 10000)
+</script>
+{% endblock content %}

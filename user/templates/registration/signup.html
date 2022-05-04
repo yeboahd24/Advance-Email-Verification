@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% load i18n %}
+{% load bootstrap4 %}
+
+{% block head %}
+<title>SyTech - {% trans 'Sign up' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main sign-up container-fluid d-flex align-items-center px-0">
+    <div class="container py-4">
+        <form name = 'user_form' method="post" class="card shadow p-4">
+            <h2 class="section-heading mb-4 w-100">{% trans 'Sign up' %}</h2>
+
+            {% csrf_token %}
+            {{user_form.as_p}}
+            <button type="submit">SignUP</button>
+
+        </form>
+    </div>
+</section>
+
+
+{% endblock content %}

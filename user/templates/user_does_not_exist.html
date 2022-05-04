@@ -1,0 +1,22 @@
+{% extends '_base.html' %}
+{% load i18n %}
+
+{% block head %}
+<title>SyTech - {% trans 'User`s verification' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main user_does_not_exist container-fluid d-flex align-items-center">
+    <div class="container justify-content-center py-4 py-md-0 mt-4">
+        <h1 class="text-center">{% trans "User does not exist" %}</h1>
+        <p>
+            {% blocktrans %}User does not exist. We checked our database and unfortunately did not find you in it.Please go through the {% endblocktrans %}
+            <a href="{% url 'users:signup' %}">{% trans 'registration process' %}</a>.
+            {% trans 'Or contact with our' %}
+            <a href="mailto:support@intime.digital">
+            {% trans 'customer service' %}
+            </a>
+        </p>
+    </div>
+
+{% endblock content %}

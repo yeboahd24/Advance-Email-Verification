@@ -1,0 +1,2 @@
+CONFIRM_EMAIL_LIFETIME = 1
+SALT = 'abracadabra'

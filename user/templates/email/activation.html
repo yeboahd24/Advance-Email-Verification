@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load static %}
+{% autoescape off %}
+{% load fullurl %}
+
+<html>
+
+<head>
+	<title>SyTech - {% trans 'Registration Email' %}</title>
+</head>
+
+<body>
+	<table style="width: 100%;">
+		<tr>
+			<td style="padding-left: 5%; padding-top: 48px; font-family: Roboto; font-style: normal; font-weight: bold; font-size: 24px; line-height: 28px; text-decoration: none; color: #3683fc;">
+				{% trans 'Sign Up' %}
+			</td>
+
+			<td style="text-align: right; padding-right: 5%; padding-top: 35px; width: 110px;">
+				<img src="{{ fullurlstatic }}logo/apps/{{ app_bmi|slugify }}.png" style="text-align: right; padding-right: 5%; padding-top: 35px; width: 110px;" />
+			</td>
+		</tr>
+	</table>
+
+	<div style="padding: 48px 0 24px; position: relative; text-align: center; font-family: Roboto; font-size: 18px; line-height: 21px;">
+		<p style="margin-bottom: 24px;">{% trans 'Dear user' %},</p>
+
+		<p>
+			{% blocktrans %}
+			We sent you this email because you have registered on the {{ app_name }} app or our website.
+			Click the link to verify your email address:
+			{% endblocktrans %}
+		</p>
+
+		<div style="padding: 40px 0;">
+			<a href="{{ activate_url }}" style="height: 50px; background: linear-gradient(180deg, #51daff 0%, #3683fc 100%); border-radius: 25px; padding: 14px 24px; font-family: 'Roboto', sans-serif; font-style: normal; font-weight: bold; font-size: 20px; line-height: 23px; color: #ffffff; text-decoration: none;">
+				{% trans 'Confirm Email' %}
+			</a>
+		</div>
+
+		<p>{% trans 'If it was not you, please ignore this email.' %}</p>
+
+		<p 
+			style="margin-top: 35px; font-family: 'Roboto', sans-serif; font-style: normal; font-weight: bold; font-size: 18px; line-height: 21px; color: #3683fc;"
+		>
+			{% blocktrans %} the {{ app_name }} team {% endblocktrans %}
+		</p>
+	</div>
+</body>
+</html>
+{% endautoescape %}

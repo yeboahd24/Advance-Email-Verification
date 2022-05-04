@@ -1,0 +1,22 @@
+{% extends "_base.html" %}
+{% load i18n %}
+
+{% block head %}
+<title>Longevity InTime - {% trans 'Password reset' %}</title>
+{% endblock head %}
+
+{% block content %}
+<section class="main password-reset container-fluid d-flex align-items-center">
+    <div class="container transparent justify-content-center py-6 py-md-0 mx-auto px-lg-5">
+        <h3 class="text-center py-1 my-3">{% trans "Password reset" %}</h3>
+        <p class="text-center">
+            {% trans 'We have sent you an e-mail. Please contact us if you do not receive it within a few minutes.' %}
+        </p>
+    </div>
+</section>
+<script>
+setTimeout(() => {
+    window.location.href = "{% url 'users:login' %}"
+}, 10000)
+</script>
+{% endblock content %}
