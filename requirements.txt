@@ -1,0 +1,4 @@
+Django==3.0.4
+django-bootstrap4
+django-celery
+redis

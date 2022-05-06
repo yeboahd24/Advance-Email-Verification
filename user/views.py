@@ -8,7 +8,7 @@ from django.views.generic import CreateView
 from django.urls import reverse
 from django.utils.translation import get_language, gettext_lazy as _
 from .user_crypt import decoder
-from .user_mail import mail_send
+from .tasks import mail_send
 from .forms import CustomUserCreationForm, CustomUserChangeForm, CustomAuthenticationForm
 
 User = get_user_model()
@@ -43,7 +43,7 @@ def activate_user_account(request, signed_user=None):
         host = request.get_host()
         scheme = request.scheme
         lang = get_language()
-        mail_send(lang, scheme, host, user.pk)
+        mail_send.delay(lang, scheme, host, user.pk)
         return render(request, 'email_verify_end_of_time.html')
 
     else:
@@ -57,7 +57,7 @@ def signup(request):
             new_user = user_form.save(commit=False)
             new_user.set_password(user_form.cleaned_data['password1'])
             new_user.save()
-            mail_send(get_language(), request.scheme, request.get_host(), new_user.pk)
+            mail_send.delay(get_language(), request.scheme, request.get_host(), new_user.pk)
             return render(request, 'registration/signup_done.html', {'new_user': new_user})
 
     else:

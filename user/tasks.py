@@ -1,4 +1,5 @@
 from __future__ import absolute_import, unicode_literals
+from celery import shared_task
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
@@ -10,7 +11,7 @@ from django.utils import translation
 
 User = get_user_model()
 
-
+@shared_task
 def mail_send(lang, scheme, host, user_id, app_name="SyTech"):
     user = User.objects.filter(pk=user_id).first()
     text_content = "Account activation"
